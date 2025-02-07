@@ -1,10 +1,15 @@
 "use strict";
 
-const URL = require("url");
-
 module.exports = function ({ allowedDomains, message }) {
   function isRequestAllowed(data) {
-    const { hostname } = URL.parse(data.url);
+    let hostname;
+    try {
+      // Use the URL constructor; if data.url may be relative, provide a base.
+      const parsedUrl = new URL(data.url, "http://example.com");
+      hostname = parsedUrl.hostname;
+    } catch (error) {
+      return false;
+    }
     return allowedDomains.some(
       (allowedDomain) =>
         hostname === allowedDomain || hostname.endsWith(`.${allowedDomain}`)
@@ -17,5 +22,7 @@ module.exports = function ({ allowedDomains, message }) {
     }
   }
 
-  return checkWhitelist;
+  return {
+    checkWhitelist,
+  };
 };

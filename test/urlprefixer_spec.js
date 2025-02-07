@@ -172,6 +172,12 @@ var testLines = {
   '<button formaction="/mytarget">':
     '<button formaction="/proxy/http://localhost:8081/mytarget">',
   '<button formaction="mytarget.php">': '<button formaction="mytarget.php">',
+  // simple URL rewriting
+  "Visit http://example.com for more.":
+    "Visit /proxy/http://example.com for more.",
+  // multiple URLs
+  "Multiple: http://example.com and https://example.org":
+    "Multiple: /proxy/http://example.com and /proxy/https://example.org"
 };
 
 var testUri = URL.parse("http://localhost:8081/");
@@ -228,6 +234,27 @@ test("should correctly handle packets split at different locations", function (t
     var end = fullSource.substr(splitLocation);
     createSubTest(start, end);
   }
+});
+
+test("rewrite urls", function (t) {
+  _.forOwn(testLines, function (expected, source) {
+    var rewritten = urlPrefix.rewriteUrls(source);
+    t.equal(rewritten, expected, `Should prefix URLs in: ${source}`);
+  });
+  t.end();
+});
+
+test("stream rewrite", function (t) {
+  var input = "See http://example.com";
+  var expected = "See /proxy/http://example.com";
+  var stream = urlPrefix.createStream();
+  stream.pipe(
+    concat(function (output) {
+      t.equal(output.toString(), expected, "Stream should rewrite URL");
+      t.end();
+    })
+  );
+  stream.end(input);
 });
 
 // todo: add tests for javascript (?)

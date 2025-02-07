@@ -2,20 +2,28 @@
 
 const URL = require("url");
 
-module.exports = function ({ blockedDomains, message }) {
-  function isRequestBlocked(data) {
-    const { hostname } = URL.parse(data.url);
-    return blockedDomains.some(
-      (blockedDomain) =>
-        hostname === blockedDomain || hostname.endsWith(`.${blockedDomain}`)
-    );
+/**
+ * Example blacklist for node-unblocker.
+ */
+
+function isBlacklisted(req) {
+  let parsedUrl;
+  try {
+    // Use the URL constructor; adjust the base URL as needed.
+    parsedUrl = new URL(req.url, "http://example.com");
+  } catch (error) {
+    return false;
   }
 
-  function checkBlacklist(data) {
-    if (isRequestBlocked(data)) {
-      data.clientResponse.status(400).send(message);
-    }
-  }
+  // Sample blacklist, update as appropriate.
+  const blacklistedHosts = [
+    "example.com",
+    "malicious.com"
+  ];
 
+  // Check if the hostname is blacklisted.
+  const checkBlacklist = blacklistedHosts.includes(parsedUrl.hostname);
   return checkBlacklist;
-};
+}
+
+module.exports = isBlacklisted;
