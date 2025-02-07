@@ -257,4 +257,6 @@ test("stream rewrite", function (t) {
   stream.end(input);
 });
 
+var ref = new URL(request.headers.referer);
+
 // todo: add tests for javascript (?)
