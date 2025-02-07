@@ -1,5 +1,7 @@
 "use strict";
 
+/* eslint-disable node/no-unsupported-features/node-builtins */
+
 module.exports = function ({ allowedDomains, message }) {
   function isRequestAllowed(data) {
     let hostname;
