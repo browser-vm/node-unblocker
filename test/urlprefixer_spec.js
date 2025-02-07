@@ -177,7 +177,7 @@ var testLines = {
     "Visit /proxy/http://example.com for more.",
   // multiple URLs
   "Multiple: http://example.com and https://example.org":
-    "Multiple: /proxy/http://example.com and /proxy/https://example.org"
+    "Multiple: /proxy/http://example.com and /proxy/https://example.org",
 };
 
 var testUri = URL.parse("http://localhost:8081/");

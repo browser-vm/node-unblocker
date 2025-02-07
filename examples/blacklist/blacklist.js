@@ -16,10 +16,7 @@ function isBlacklisted(req) {
   }
 
   // Sample blacklist, update as appropriate.
-  const blacklistedHosts = [
-    "example.com",
-    "malicious.com"
-  ];
+  const blacklistedHosts = ["example.com", "malicious.com"];
 
   // Check if the hostname is blacklisted.
   const checkBlacklist = blacklistedHosts.includes(parsedUrl.hostname);
