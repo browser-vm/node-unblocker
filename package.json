@@ -8,7 +8,7 @@
     "node": ">=16.17"
   },
   "dependencies": {
-    "async": "^3.2.5",
+    "async": "^3.2.6",
     "content-type": "^1.0.5",
     "cookie": "^1.0.1",
     "debug": "^4.3.5",
