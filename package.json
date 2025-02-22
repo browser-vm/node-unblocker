@@ -31,7 +31,7 @@
     "nodemon": "^3.1.9",
     "prettier": "2.2.1",
     "tap": "^19.2.5",
-    "ws": "^8.18.0"
+    "ws": "^8.18.1"
   },
   "scripts": {
     "watch": "nodemon --watch ./ --ignore ./examples --ext js,html,xhtml,json --exec npm run test",
